@@ -11,8 +11,8 @@ class DeliveryCalculatorTest {
 
     @ParameterizedTest
     @Tag("exception")
-    @DisplayName("Выброс исключения при хрупком грузе на расстоянии более 30 км")
-    @Description("Проверяет, что если груз хрупкий и расстояние больше 30 км, выбрасывается исключение.")
+    @DisplayName("Exception throw for fragile cargo at a distance of more than 30 km")
+    @Description("Checks that if the cargo is fragile and the distance is more than 30 km, an exception is thrown.")
     @CsvSource({
             "35, false, true, ordinary"
     })
@@ -26,8 +26,8 @@ class DeliveryCalculatorTest {
 
     @ParameterizedTest
     @Tag("calculation")
-    @DisplayName("Минимальная стоимость доставки")
-    @Description("Проверяет, что если рассчитанная стоимость меньше минимальной, устанавливается минимальная цена.")
+    @DisplayName("Minimum shipping cost")
+    @Description("Checks that if the calculated cost is less than the minimum, the minimum price is set.")
     @CsvSource({
             "1, false, false, ordinary, 400",
             "5, false, false, ordinary, 400",
@@ -40,8 +40,8 @@ class DeliveryCalculatorTest {
 
     @ParameterizedTest
     @Tag("workload")
-    @DisplayName("Проверка стоимости при разной загруженности")
-    @Description("Проверяет расчет стоимости для маленького хрупкого груза при разной загруженности.")
+    @DisplayName("Check the cost")
+    @Description("Checks the cost calculation for small fragile cargo with different loading conditions.")
     @CsvSource({
             "5, false, true, very high, 800",
             "30, false, true, increased, 720",
@@ -58,8 +58,8 @@ class DeliveryCalculatorTest {
 
     @ParameterizedTest
     @Tag("calculation")
-    @DisplayName("Расчет стоимости для больших расстояний без хрупкости")
-    @Description("Проверяет стоимость доставки при расстоянии более 30 км без хрупкости и с разными уровнями загруженности.")
+    @DisplayName("Cost calculation for long distances without fragility")
+    @Description("Checks delivery costs for distances over 30 km without fragility and with different levels of congestion.")
     @CsvSource({
             "31, false, false, high, 560"
     })
@@ -70,12 +70,12 @@ class DeliveryCalculatorTest {
 
     @ParameterizedTest
     @Tag("negative")
-    @DisplayName("Тест: обработка некорректных значений")
-    @Description("Проверяет, что метод корректно обрабатывает некорректные входные данные и выбрасывает исключение.")
+    @DisplayName("Errors handling")
+    @Description("Proves that the method correctly handles uncorrected input data.")
     @CsvSource({
-            "-1, false, false, ordinary",  // Отрицательное расстояние
-            "10, false, false, ''",        // Пустая строка workload
-            "10, false, false, 'invalid'"  // Неверное значение workload
+            "-1, false, false, ordinary",
+            "10, false, false, ''",
+            "10, false, false, 'invalid'"
     })
     void testHandleNegativeValues(double distance, boolean isLarge, boolean isFragile, String workload) {
         assertThrows(IllegalArgumentException.class, () ->
