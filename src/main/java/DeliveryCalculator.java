@@ -1,6 +1,17 @@
 public class DeliveryCalculator {
 
     public static double calculateDeliveryCost(double distance, boolean isLargeSize, boolean isFragile, String workload) {
+        if (distance < 0) {
+            throw new IllegalArgumentException("Distance cannot be negative");
+        }
+        if (workload == null || workload.trim().isEmpty()) {
+            throw new IllegalArgumentException("Workload cannot be null or empty");
+        }
+
+        if (!workload.matches("(?i)ordinary|increased|high|very high")) {
+            throw new IllegalArgumentException("Invalid workload value: " + workload);
+        }
+
         if (isFragile && distance > 30) {
             throw new IllegalArgumentException("Fragile goods cannot be delivered over a distance of more than 30 km");
         }
@@ -32,10 +43,6 @@ public class DeliveryCalculator {
 
         cost *= coefficient;
 
-        if (cost < 400) {
-            cost = 400;
-        }
-
-        return cost;
+        return Math.max(cost, 400);
     }
 }
