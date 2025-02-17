@@ -1,7 +1,7 @@
 public class DeliveryCalculator {
 
     public static double calculateDeliveryCost(double distance, boolean isLargeSize, boolean isFragile, String workload) {
-        if (distance < 0) {
+        if (distance <= 0) {
             throw new IllegalArgumentException("Distance cannot be negative");
         }
         if (workload == null || workload.trim().isEmpty()) {
@@ -15,6 +15,7 @@ public class DeliveryCalculator {
         if (isFragile && distance > 30) {
             throw new IllegalArgumentException("Fragile goods cannot be delivered over a distance of more than 30 km");
         }
+
 
         double cost = 0;
 
